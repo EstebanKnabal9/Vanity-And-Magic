@@ -1,66 +1,162 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+Vanity And Magic
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Este es un proyecto Laravel con Docker para gestionar [explica brevemente la funcionalidad del proyecto]. A continuación, encontrarás instrucciones detalladas para configurar, ejecutar y contribuir al proyecto.
 
-## About Laravel
+📌 Requisitos Previos
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+Antes de comenzar, asegúrate de tener instalados los siguientes programas en tu sistema:
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+Docker: Para correr los contenedores del proyecto.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+Git: Para clonar y gestionar el código fuente.
 
-## Learning Laravel
+Composer: Para manejar las dependencias de PHP.
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+NVM (Node Version Manager): Para gestionar la versión de Node.js.
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+Si no los tienes, instálalos desde sus sitios oficiales:
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+Docker: https://www.docker.com/
 
-## Laravel Sponsors
+Git: https://git-scm.com/
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+Composer: https://getcomposer.org/
 
-### Premium Partners
+NVM (Linux/macOS): https://github.com/nvm-sh/nvm
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+NVM para Windows: https://github.com/coreybutler/nvm-windows
 
-## Contributing
+🚀 Instalación y Configuración
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+1️⃣ Clonar el Repositorio
 
-## Code of Conduct
+Abre una terminal y ejecuta el siguiente comando:
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+git clone git@github.com:EstebanKnabal9/Vanity-And-Magic.git
+cd Vanity-And-Magic
 
-## Security Vulnerabilities
+2️⃣ Configurar Variables de Entorno
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+Renombra el archivo de configuración de entorno:
 
-## License
+cp .env.example .env
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+Luego, edita el archivo .env y asegúrate de configurar correctamente la base de datos:
+
+DB_CONNECTION=mysql
+DB_HOST=db
+DB_PORT=3306
+DB_DATABASE=vanity
+DB_USERNAME=vanity_user
+DB_PASSWORD=secret
+
+3️⃣ Construir y Levantar los Contenedores Docker
+
+Ejecuta los siguientes comandos:
+
+docker-compose up -d --build
+
+Este comando construirá y ejecutará los contenedores en segundo plano.
+
+4️⃣ Instalar Dependencias
+
+Para Linux/macOS
+
+Antes de instalar dependencias, asegúrate de tener la versión correcta de Node.js usando nvm:
+
+nvm install 18  # O la versión que necesites
+nvm use 18      # Activa esa versión
+
+Para Windows
+
+Si usas Windows, instala NVM para Windows y ejecuta:
+
+nvm install 18
+nvm use 18
+
+Luego, dentro del contenedor de la aplicación, ejecuta:
+
+docker exec -it vanity_app bash
+composer install
+npm install
+npm run dev
+
+5️⃣ Ejecutar Migraciones de Base de Datos
+
+docker exec -it vanity_app bash
+php artisan migrate
+
+Este comando creará las tablas necesarias en la base de datos.
+
+6️⃣ Generar la Key de Laravel
+
+php artisan key:generate
+
+Esto asegurará que Laravel tenga una clave única para encriptación.
+
+📂 Estructura del Proyecto
+
+Vanity-And-Magic/
+│── app/                # Código de la aplicación Laravel
+│── bootstrap/          # Archivos de arranque
+│── config/             # Configuración del proyecto
+│── database/           # Migraciones y seeders
+│── public/             # Archivos públicos (CSS, JS, imágenes)
+│── resources/          # Vistas y assets
+│── routes/             # Rutas de la aplicación
+│── storage/            # Logs y caché
+│── tests/              # Pruebas
+│── .env                # Variables de entorno
+│── docker-compose.yml  # Configuración de Docker
+│── README.md           # Documentación
+
+✅ Comandos Útiles
+
+Aquí algunos comandos que pueden ayudarte durante el desarrollo:
+
+Ver los logs de Laravel:
+
+docker logs -f vanity_app
+
+Ingresar a la base de datos MySQL:
+
+docker exec -it vanity_mysql mysql -u vanity_user -p
+
+Reiniciar el servidor Laravel:
+
+php artisan serve
+
+🛠 Solución de Problemas
+
+Error: "docker-compose: command not found"
+
+Solución: Asegúrate de que Docker está correctamente instalado y que docker-compose está disponible en tu sistema.
+
+Error: "Permission denied" al correr un comando
+
+Solución: Si estás en Linux/macOS, intenta ejecutar el comando con sudo, o revisa los permisos de los archivos.
+
+Error: "The connection to the database could not be established"
+
+Solución: Asegúrate de que los contenedores están corriendo (docker ps) y de que las credenciales en .env son correctas.
+
+🤝 Contribuir
+
+Si deseas contribuir al proyecto, sigue estos pasos:
+
+Haz un fork del repositorio.
+
+Crea una nueva rama (git checkout -b mi-nueva-funcionalidad).
+
+Realiza tus cambios y haz commits (git commit -m "Descripción del cambio").
+
+Sube tu rama (git push origin mi-nueva-funcionalidad).
+
+Abre un Pull Request en GitHub.
+
+📜 Licencia
+
+Este proyecto está bajo la licencia MIT.
+
+Si tienes problemas o preguntas, no dudes en abrir un issue en el repositorio. ¡Feliz coding! 🚀
+
