@@ -1,8 +1,8 @@
-version: '3.8'
-
 services:
   app:
-    image: php:8.2-fpm
+    build:
+      context: .
+      dockerfile: Dockerfile
     container_name: vanity_app
     restart: unless-stopped
     working_dir: /var/www
