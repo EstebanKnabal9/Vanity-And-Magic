@@ -8,7 +8,7 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #f3f4f6;
+            background-color: #eecfc4bd;
             color: #1f2937;
             display: flex;
             flex-direction: column;
@@ -38,7 +38,7 @@
 
         a {
             text-decoration: none;
-            background-color: #3b82f6;
+            background-color: #cdbbbb;
             color: white;
             padding: 0.8rem 1.5rem;
             border-radius: 0.5rem;
@@ -47,13 +47,14 @@
         }
 
         a:hover {
-            background-color: #2563eb;
+            background-color: #817a8a;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>Bienvenido al Sistema de Inventario Vanity and Magic</h1>
+        <h1>Bienvenido al Sistema de Inventario</h1>
+        <h1>Vanity and Magic</h1>
         <p>Gestiona tu tienda y más desde tu panel de administración.</p>
         <a href="{{ route('panel.inicio') }}">Ir al Panel</a>
     </div>
