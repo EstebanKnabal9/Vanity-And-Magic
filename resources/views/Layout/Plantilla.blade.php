@@ -44,7 +44,7 @@
         </div>
     </div> --}}
 
-    <!-- Categorias -->
+    <!-- Inicio -->
 
         <a href="{{ route('panel.inicio') }}" class="element-slidebar">
             <div class="element-slidebar-btn">
@@ -63,7 +63,7 @@
           </a>
           
 
-    <!-- Sub Categorias -->
+    <!-- SubCategorias -->
 
         <a href="{{ route('subcategorias.index') }}" class="element-slidebar">
          <div class="element-slidebar-btn">
@@ -90,13 +90,24 @@
         </div>
       </a>
        
-    
-    <!-- Compras -->
+    <!-- Ingresos -->
 
-        {{-- <div class="element-slidebar-btn"> --}}
-         {{-- <span><img  src="{{asset('img/compras.png')}}" alt="Product"></span> --}}
-         {{-- <a href="{{route('categoria.index')}}">Compras</a>          --}}
-        {{-- </div> --}}
+    <a href="{{ route('ingresos.index') }}" class="element-slidebar">
+      <div class="element-slidebar-btn">
+          {{-- <span><img  src="{{asset('img/category.png')}}" alt="Product"></span> --}}
+        Ingresos / Compras
+      </div>
+    </a>
+
+
+    <!-- Egresos -->
+    <a href="{{ route('egresos.index') }}" class="element-slidebar">
+      <div class="element-slidebar-btn">
+          {{-- <span><img  src="{{asset('img/category.png')}}" alt="Product"></span> --}}
+        Egresos / Ventas
+      </div>
+    </a>
+ 
        
         <!-- Ventas -->
         

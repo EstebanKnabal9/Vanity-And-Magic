@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Producto;
 use App\Models\Categoria;
 use App\Models\Subcategoria;
+use App\Models\Proveedor;
 use Illuminate\Http\Request;
 
 class ProductosController extends Controller
@@ -25,6 +26,11 @@ class ProductosController extends Controller
     public function subcategoria()
     {
         return $this->belongsTo(Subcategoria::class, 'subcategoria_id');
+    }
+
+    public function proveedor()
+    {
+        return $this->belongsTo(Proveedor::class, 'subcategoria_id');
     }
 
     public function create()

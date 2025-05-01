@@ -5,22 +5,22 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class Ingreso extends Model
+class Egreso extends Model
 {
     use HasFactory;
 
-    protected $table = 'ingresos';
+    protected $table = 'egresos';
 
     protected $fillable = [
         'producto_id',
+        'proveedor_id',
         'cantidad',
         'costo_unitario',
         'costo_total',
-        'tipo_ingreso',
+        'tipo_egreso',
         'documento',
-        'proveedor_id',
         'observacion',
-        'fecha_ingreso',
+        'fecha_egreso',
     ];
 
     // Relaciones
