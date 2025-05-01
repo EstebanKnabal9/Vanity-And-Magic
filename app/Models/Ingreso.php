@@ -20,7 +20,7 @@ class Ingreso extends Model
         'documento',
         'proveedor_id',
         'observacion',
-        'fecha_ingreso',
+        'fecha_ingreso' => 'date'
     ];
 
     // Relaciones

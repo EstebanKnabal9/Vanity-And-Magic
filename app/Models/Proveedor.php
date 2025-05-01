@@ -12,11 +12,13 @@ class Proveedor extends Model
     protected $fillable = [
         'nombre', 
         'identificacion', 
+        'descripcion',
         'telefono', 
         'correo', 
         'direccion', 
         'estado'
     ];
+    
 
     public $timestamps = true;
 }

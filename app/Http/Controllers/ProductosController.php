@@ -60,17 +60,19 @@ class ProductosController extends Controller
 
     public function edit($id)
     {
-        $producto = Producto::findOrFail($id);
-        $categorias = Categoria::all();
-        $subcategorias = Subcategoria::all();
+        $producto = Producto::findOrFail($id); // Obtiene el producto por su id
+        $categorias = Categoria::all(); // Obtiene todas las categorías
+        $subcategorias = Subcategoria::all(); // Obtiene todas las subcategorías
 
-        return view('Productos.edit', compact('producto', 'categorias', 'subcategorias'));
+        return view('Productos.edit', compact('producto', 'categorias', 'subcategorias')); // Pasa el producto, categorías y subcategorías a la vista
     }
+
 
     public function update(Request $request, $id)
     {
-        $producto = Producto::findOrFail($id);
-
+        $producto = Producto::findOrFail($id); // Encuentra el producto por su id
+        
+        // Valida los datos del formulario
         $validatedData = $request->validate([
             'nombre' => 'required|max:255',
             'descripcion' => 'nullable',
@@ -81,11 +83,13 @@ class ProductosController extends Controller
             'categoria_id' => 'required|exists:categorias,id',
             'subcategoria_id' => 'nullable|exists:subcategorias,id',
         ]);
-
+    
+        // Actualiza el producto con los datos validados
         $producto->update($validatedData);
-
+    
         return redirect()->route('productos.index')->with('success', 'Producto actualizado correctamente.');
     }
+
 
     public function destroy($id)
     {

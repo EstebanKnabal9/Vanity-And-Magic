@@ -22,6 +22,12 @@
                 <input type="text" id="identificacion" name="identificacion" required>
             </div>
 
+            <!-- Campo de Descripción agregado -->
+            <div class="form-group">
+                <label for="descripcion">Descripción</label>
+                <textarea id="descripcion" name="descripcion" rows="4" placeholder="Descripción del proveedor..."></textarea>
+            </div>
+
             <div class="form-group">
                 <label for="telefono">Teléfono</label>
                 <input type="text" id="telefono" name="telefono">
