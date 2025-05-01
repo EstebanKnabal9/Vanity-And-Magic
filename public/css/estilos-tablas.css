@@ -95,3 +95,17 @@ td:last-child,th:last-child{
 tbody tr:hover {
     background-color: #eeeeee;
 }
+
+.botones-accion {
+    display: flex;
+    align-items: center;
+    gap: 8px; /* espacio entre botones */
+    justify-content: center;
+}
+
+.botones-accion a img,
+.botones-accion input[type="image"] {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+}

@@ -2,9 +2,27 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CategoriaController;
+use App\Http\Controllers\SubcategoriaController;
+use App\Http\Controllers\ProductosController;
+use App\Http\Controllers\ProveedorController;
 
 Route::get('/', function () {
     return view('welcome');
 });
 
-Route::resource('/categoria',CategoriaController::class);
+//INICIO
+Route::get('/panel', function () {
+    return view('Inicio.inicio');
+})->name('panel.inicio');
+
+// CRUD de Categorías
+Route::resource('categorias', CategoriaController::class);
+
+// CRUD de Subcategorías
+Route::resource('subcategorias', SubcategoriaController::class);
+
+// CRUD de Productos
+Route::resource('productos', ProductosController::class);
+
+//CRUD de Proveedores
+Route::resource('proveedores', ProveedorController::class);

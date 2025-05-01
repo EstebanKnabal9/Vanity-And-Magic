@@ -11,7 +11,7 @@ Categorias
     <nav class="nav-botones">
         <ul class="nav-menu">
             <li class="nav-item">
-                <a href="{{route('categoria.create')}}" class="nav-link btn-agregar">Agregar Categoria</a>
+                <a href="{{route('categorias.create')}}" class="nav-link btn-agregar">Agregar Categoria</a>
             </li>
         </ul>
     </nav>
@@ -39,11 +39,11 @@ Categorias
                    <img src="img/view.png" alt="">
                 </a> --}}
 
-                   <a href="{{route('categoria.edit',[$categoria->id])}}">
+                   <a href="{{route('categorias.edit',[$categoria->id])}}">
                    <img src="img/edit.png" alt="">
                    </a>
 
-                    <form action="{{route('categoria.destroy',[$categoria->id])}}" method="POST" onsubmit="return confimarEliminacion()">
+                    <form action="{{route('categorias.destroy',[$categoria->id])}}" method="POST" onsubmit="return confimarEliminacion()">
 
                     @method('DELETE')
                     <input type="image"src="img/delete.png"></input>
