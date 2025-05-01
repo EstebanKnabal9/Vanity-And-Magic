@@ -22,10 +22,10 @@
   <!-- slidebar   -->
    <aside class="slidebar" id="slidebar">
    
-    <a href="" class="logo">
+    <a href="{{ route('panel.inicio') }}" class="logo">
         <p class="logo-text">Vanity and Magic</p>
       </a>
-    
+      <div class="element-slidebar">
     <!-- PERFIL -->
     {{-- <div class="element-slidebar">
         <div class="element-slidebar-btn profile">
@@ -43,47 +43,68 @@
 
         </div>
     </div> --}}
+
+    <!-- Categorias -->
+
+        <a href="{{ route('panel.inicio') }}" class="element-slidebar">
+            <div class="element-slidebar-btn">
+                {{-- <span><img  src="{{asset('img/category.png')}}" alt="Product"></span> --}}
+              Panel de Inicio
+            </div>
+        </a>
+
      <!-- Categorias -->
-         
-        <div class="element-slidebar-btn">
-         {{-- <span><img  src="{{asset('img/category.png')}}" alt="Product"></span> --}}
-         <a href="{{route('categoria.index')}}">Categorias</a>
-        </div>
-       
-  
+
+        <a href="{{ route('categorias.index') }}" class="element-slidebar">
+            <div class="element-slidebar-btn">
+                {{-- <span><img  src="{{asset('img/category.png')}}" alt="Product"></span> --}}
+              Categorias
+            </div>
+          </a>
+          
+
+    <!-- Sub Categorias -->
+
+        <a href="{{ route('subcategorias.index') }}" class="element-slidebar">
+         <div class="element-slidebar-btn">
+             {{-- <span><img  src="{{asset('img/category.png')}}" alt="Product"></span> --}}
+           Subcategorias
+         </div>
+        </a>
+      
     <!-- Productos -->
-    
-    
-        <div class="element-slidebar-btn">
-         <span><img  src="{{asset('img/rokrt.png')}}" alt="Product"></span>
-         {{-- <a href="{{route('producto.index')}}">Productos</a> --}}
-       
-        </div>
         
-     
+        <a href="{{ route('productos.index') }}" class="element-slidebar">
+           <div class="element-slidebar-btn">
+               {{-- <span><img  src="{{asset('img/rokrt.png')}}" alt="Product"></span> --}}
+             Productos
+           </div>
+        </a>
+               
     <!-- Provedores -->
-   
+
+      <a href="{{ route('proveedores.index') }}" class="element-slidebar">
         <div class="element-slidebar-btn">
-         <span><img  src="{{asset('img/provedores.png')}}" alt="Provedor"></span>      
-         {{-- <a href="{{route('categoria.index')}}">Provedores</a> --}}
+            {{-- <span><img  src="{{asset('img/category.png')}}" alt="Product"></span> --}}
+          Proveedores
         </div>
+      </a>
        
     
     <!-- Compras -->
 
-        <div class="element-slidebar-btn">
+        {{-- <div class="element-slidebar-btn"> --}}
          {{-- <span><img  src="{{asset('img/compras.png')}}" alt="Product"></span> --}}
          {{-- <a href="{{route('categoria.index')}}">Compras</a>          --}}
-        </div>
+        {{-- </div> --}}
        
         <!-- Ventas -->
         
-            <div class="element-slidebar-btn">
+            {{-- <div class="element-slidebar-btn"> --}}
              {{-- <span><img  src="{{asset('img/ventas.png')}}" alt="ventas"></span> --}}
              {{-- <a href="{{route('categoria.index')}}">Ventas</a> --}}
-            </div>
-           
-    </div>
+            {{-- </div> --}}
+      </div>
    </aside>
 
    <!-- main -->

@@ -19,20 +19,20 @@ class CategoriaController extends Controller
     }
 
     public function store(Request $request)
-{
-    $validatedData = $request->validate([
+    {
+        $validatedData = $request->validate([
         'nombre' => 'required|max:255',
         'descripcion' => 'nullable',
         'estado' => 'required|boolean',
     ]);
 
-    $categoria = new Categoria();
-    $categoria->nombre = $validatedData['nombre'];
-    $categoria->descripcion = $validatedData['descripcion'];
-    $categoria->estado = $validatedData['estado'];
-    $categoria->save();
-    return redirect()->route('categoria.index');
-}
+        $categoria = new Categoria();
+        $categoria->nombre = $validatedData['nombre'];
+        $categoria->descripcion = $validatedData['descripcion'];
+        $categoria->estado = $validatedData['estado'];
+        $categoria->save();
+        return redirect()->route('categorias.index');
+    }
 
     /**
      * Display the specified resource.
@@ -65,6 +65,6 @@ class CategoriaController extends Controller
     {
         $categoria=Categoria::findOrFail($id);
         $categoria->delete();
-        return redirect()->route('categoria.index');
+        return redirect()->route('categorias.index');
     }
 }

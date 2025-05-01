@@ -8,10 +8,16 @@ services:
     working_dir: /var/www
     volumes:
       - .:/var/www
+    env_file:
+      - .env
     depends_on:
       - db
     networks:
       - vanity_network
+    command: >
+      sh -c "chown -R www-data:www-data storage bootstrap/cache &&
+             chmod -R 775 storage bootstrap/cache &&
+             php-fpm"
 
   webserver:
     image: nginx:alpine
