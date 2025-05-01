@@ -42,7 +42,7 @@
                 <select id="tipo_ingreso" name="tipo_ingreso" required>
                     <option value="compra">Compra</option>
                     <option value="ajuste">Ajuste</option>
-                    <option value="devolucion">Devolución</option>
+                    {{-- <option value="devolucion">Devolución</option> --}}
                 </select>
             </div>
 

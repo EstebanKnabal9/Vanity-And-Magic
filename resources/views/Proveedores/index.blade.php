@@ -10,7 +10,7 @@ Proveedores
     <nav class="nav-botones">
         <ul class="nav-menu">
             <li class="nav-item">
-                <a href="{{ route('proveedores.create') }}" class="nav-link btn-agregar">Agregar Subcategoría</a>
+                <a href="{{ route('proveedores.create') }}" class="nav-link btn-agregar">Agregar Proveedor</a>
             </li>
         </ul>
     </nav>
@@ -22,10 +22,9 @@ Proveedores
                 <th>Nombre</th>
                 <th>Identificación</th>
                 <th>Descripción</th>
-                <th>Estado</th>
+                <th>Direccion</th>
                 <th>Telefono</th>
                 <th>Correo</th>
-                <th>Direccion</th>
                 <th>Estado</th>
                 <th>Opciones</th>
             </tr>
@@ -38,14 +37,15 @@ Proveedores
                     <td>{{ $proveedor->identificacion }}</td>
                     <td>{{ $proveedor->descripcion }}</td>
                     <td>{{ $proveedor->direccion }}</td>
-                    <td> {{ $proveedor->telefono }}</td>
+                    <td>{{ $proveedor->telefono }}</td>
+                    <td> {{ $proveedor->correo }}</td>
                     <td>{{ $proveedor->estado ? 'Activo' : 'Inactivo' }}</td>
                     <td>
-                        <a href="{{ route('proveedores.edit', $subcategoria->id) }}">
+                        <a href="{{ route('proveedores.edit', $proveedor->id) }}">
                             <img src="{{ asset('img/edit.png') }}" alt="Editar">
                         </a>
 
-                        <form action="{{ route('proveedores.destroy', $subcategoria->id) }}" method="POST" onsubmit="return confirmarEliminacion()" style="display:inline;">
+                        <form action="{{ route('proveedores.destroy', $proveedor->id) }}" method="POST" onsubmit="return confirmarEliminacion()" style="display:inline;">
                             @csrf
                             @method('DELETE')
                             <input type="image" src="{{ asset('img/delete.png') }}" alt="Eliminar">

@@ -76,7 +76,7 @@ class IngresoController extends Controller
         $ingreso = Ingreso::findOrFail($id);
         $productos = Producto::all();
         $proveedores = Proveedor::all();
-        return view('ingresos.edit', compact('ingreso', 'productos', 'proveedores'));
+        return view('Ingresos.edit', compact('ingreso', 'productos', 'proveedores'));
     }
 
     // Método para actualizar un ingreso

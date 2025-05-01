@@ -61,7 +61,7 @@ class EgresoController extends Controller
     {
         $productos = Producto::all();
         $proveedores = Proveedor::all();
-        return view('egresos.edit', compact('egreso', 'productos', 'proveedores'));
+        return view('Egresos.edit', compact('egreso', 'productos', 'proveedores'));
     }
 
     // Actualizar un egreso

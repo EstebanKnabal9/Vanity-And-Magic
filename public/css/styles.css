@@ -1,5 +1,5 @@
 :root{
-    --color-slidebar:rgb(226, 231, 235);    
+    --color-slidebar:#d3c6cc;    
     --color-main:rgb(244, 247, 250);
     --color-texto:rgba(25, 22, 22, 0.836);
     --color-texto-hover:  rgba(253, 253, 253, 0.8);
@@ -16,7 +16,7 @@
 body{
     font-family: "Roboto",sans-serif ;
     color: var(--color-texto);
-    background:white;
+    background:#eecfc4bd;
 }
 
 /* slidebar */

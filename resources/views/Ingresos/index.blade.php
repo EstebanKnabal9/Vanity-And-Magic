@@ -24,6 +24,7 @@ Ingresos / Compras
                 <th>Costo Unitario</th>
                 <th>Costo Total</th>
                 <th>Tipo de Ingreso</th>
+                <th>Observación</th>
                 <th>Proveedor</th>
                 <th>Fecha de Ingreso</th>
                 <th>Opciones</th>
@@ -38,6 +39,7 @@ Ingresos / Compras
                 <td>{{ $ingreso->costo_unitario }}</td>
                 <td>{{ $ingreso->costo_total }}</td>
                 <td>{{ $ingreso->tipo_ingreso }}</td>
+                <td> {{ $ingreso->observacion }}</td>
                 <td>{{ $ingreso->proveedor->nombre ?? 'Sin proveedor' }}</td>
                 <td>{{ $ingreso->fecha_ingreso }}</td>
                 <td>

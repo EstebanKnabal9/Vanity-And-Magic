@@ -40,30 +40,34 @@ class ProveedorController extends Controller
     }
 
     public function edit($id)
-    {
+    {   
         // Buscar el proveedor por ID
         $proveedor = Proveedor::findOrFail($id);
-        return view('Proveedores.edit', compact('proveedor'));
+        return view('Proveedores.edit', compact('proveedor')); // Pasa el proveedor a la vista
     }
+
 
     public function update(Request $request, $id)
     {
         // Validación de datos para actualizar
         $validatedData = $request->validate([
             'nombre' => 'required|max:255',
-            'identificacion' => 'required|unique:proveedores,identificacion,' . $id, // Ajuste para no validar el ID actual
+            'identificacion' => 'required|unique:proveedores,identificacion,' . $id,
+            'descripcion' => 'nullable|max:255', // Corregido
             'telefono' => 'nullable|max:20',
             'correo' => 'nullable|email|max:255',
             'direccion' => 'nullable|max:255',
             'estado' => 'required|boolean',
         ]);
-
+    
         // Buscar el proveedor y actualizar
         $proveedor = Proveedor::findOrFail($id);
         $proveedor->update($validatedData);
-
-        return redirect()->route('Proveedores.index')->with('success', 'Proveedor actualizado correctamente.');
+    
+        return redirect()->route('proveedores.index')->with('success', 'Proveedor actualizado correctamente.');
     }
+
+
 
     public function destroy($id)
     {
