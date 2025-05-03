@@ -17,19 +17,25 @@
                 <select id="producto_id" name="producto_id" required>
                     <option value="">Selecciona un producto</option>
                     @foreach ($productos as $producto)
-                        <option value="{{ $producto->id }}">{{ $producto->nombre }}</option>
+                        <option value="{{ $producto->id }}"
+                                data-stock="{{ $producto->stock }}"
+                                {{ old('producto_id') == $producto->id ? 'selected' : '' }}>
+                            {{ $producto->nombre }}
+                        </option>
                     @endforeach
                 </select>
             </div>
 
             <div class="form-group">
                 <label for="cantidad">Cantidad</label>
-                <input type="number" id="cantidad" name="cantidad" required min="1">
+                <input type="number" id="cantidad" name="cantidad" required min="1"
+                       value="{{ old('cantidad') }}">
             </div>
 
             <div class="form-group">
                 <label for="costo_unitario">Costo Unitario</label>
-                <input type="number" step="0.01" id="costo_unitario" name="costo_unitario" required min="0">
+                <input type="number" step="0.01" id="costo_unitario" name="costo_unitario" required min="0"
+                       value="{{ old('costo_unitario') }}">
             </div>
 
             <div class="form-group">
@@ -41,10 +47,10 @@
                 <label for="tipo_egreso">Tipo de Egreso</label>
                 <select id="tipo_egreso" name="tipo_egreso" required>
                     <option value="">Seleccione tipo</option>
-                    <option value="venta">Venta</option>
-                    <option value="devolucion_proveedor">Devolución al Proveedor</option>
-                    <option value="ajuste_negativo">Ajuste Negativo</option>
-                    <option value="consumo_interno">Consumo Interno</option>
+                    <option value="venta" {{ old('tipo_egreso') == 'venta' ? 'selected' : '' }}>Venta</option>
+                    <option value="devolucion_proveedor" {{ old('tipo_egreso') == 'devolucion_proveedor' ? 'selected' : '' }}>Devolución al Proveedor</option>
+                    <option value="ajuste_negativo" {{ old('tipo_egreso') == 'ajuste_negativo' ? 'selected' : '' }}>Ajuste Negativo</option>
+                    <option value="consumo_interno" {{ old('tipo_egreso') == 'consumo_interno' ? 'selected' : '' }}>Consumo Interno</option>
                 </select>
             </div>
 
@@ -53,24 +59,28 @@
                 <select id="proveedor_id" name="proveedor_id">
                     <option value="">Seleccione un proveedor</option>
                     @foreach ($proveedores as $proveedor)
-                        <option value="{{ $proveedor->id }}">{{ $proveedor->nombre }}</option>
+                        <option value="{{ $proveedor->id }}"
+                            {{ old('proveedor_id') == $proveedor->id ? 'selected' : '' }}>
+                            {{ $proveedor->nombre }}
+                        </option>
                     @endforeach
                 </select>
             </div>
 
             <div class="form-group">
                 <label for="documento">Documento</label>
-                <input type="text" id="documento" name="documento" readonly>
+                <input type="text" id="documento" name="documento" readonly value="{{ old('documento') }}">
             </div>
 
             <div class="form-group">
                 <label for="observacion">Observación</label>
-                <textarea id="observacion" name="observacion" rows="4"></textarea>
+                <textarea id="observacion" name="observacion" rows="4">{{ old('observacion') }}</textarea>
             </div>
 
             <div class="form-group">
                 <label for="fecha_egreso">Fecha de Egreso</label>
-                <input type="date" id="fecha_egreso" name="fecha_egreso" required>
+                <input type="date" id="fecha_egreso" name="fecha_egreso" required
+                       value="{{ old('fecha_egreso', date('Y-m-d')) }}">
             </div>
 
             <div class="form-group">
@@ -88,6 +98,7 @@
     const documento = document.getElementById('documento');
     const proveedorGroup = document.getElementById('proveedor-group');
     const proveedorSelect = document.getElementById('proveedor_id');
+    const productoSelect = document.getElementById('producto_id');
 
     function actualizarCostoTotal() {
         const cant = parseFloat(cantidad.value) || 0;
@@ -121,6 +132,16 @@
         }
     }
 
+    // Actualizar cantidad con stock del producto si no está lleno
+    productoSelect.addEventListener('change', function () {
+        const selectedOption = this.options[this.selectedIndex];
+        const stock = selectedOption.getAttribute('data-stock');
+        if (stock && !cantidad.value) {
+            cantidad.value = stock;
+            actualizarCostoTotal();
+        }
+    });
+
     cantidad.addEventListener('input', actualizarCostoTotal);
     costoUnitario.addEventListener('input', actualizarCostoTotal);
     tipoEgreso.addEventListener('change', () => {
@@ -128,10 +149,18 @@
         toggleProveedorField();
     });
 
+    // Inicialización
     window.addEventListener('DOMContentLoaded', () => {
         actualizarCostoTotal();
         generarDocumento();
         toggleProveedorField();
+
+        const selectedOption = productoSelect.selectedOptions[0];
+        const stock = selectedOption?.getAttribute('data-stock');
+        if (stock && !cantidad.value) {
+            cantidad.value = stock;
+            actualizarCostoTotal();
+        }
     });
 </script>
 @endsection
