@@ -3,6 +3,10 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use App\Models\Ingreso;
+use App\Models\Egreso;
+use App\Observers\IngresoObserver;
+use App\Observers\EgresoObserver;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -19,6 +23,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        Ingreso::observe(IngresoObserver::class);
+        Egreso::observe(EgresoObserver::class);
     }
 }
