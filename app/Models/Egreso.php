@@ -9,8 +9,6 @@ class Egreso extends Model
 {
     use HasFactory;
 
-    protected $table = 'egresos';
-
     protected $fillable = [
         'producto_id',
         'proveedor_id',
@@ -20,10 +18,9 @@ class Egreso extends Model
         'tipo_egreso',
         'documento',
         'observacion',
-        'fecha_egreso',
+        'fecha_egreso'
     ];
 
-    // Relaciones
     public function producto()
     {
         return $this->belongsTo(Producto::class);
@@ -32,5 +29,10 @@ class Egreso extends Model
     public function proveedor()
     {
         return $this->belongsTo(Proveedor::class);
+    }
+
+    public function movimiento()
+    {
+        return $this->hasOne(Movimiento::class);
     }
 }

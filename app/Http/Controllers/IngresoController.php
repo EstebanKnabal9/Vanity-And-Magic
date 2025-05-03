@@ -30,42 +30,27 @@ class IngresoController extends Controller
     {
         $validated = $request->validate([
             'producto_id' => 'required|exists:productos,id',
-            'cantidad' => 'required|numeric|min:1',
-            'costo_unitario' => 'required|numeric|min:0',
-            'tipo_ingreso' => 'required|string|max:255',
-            'proveedor_id' => 'nullable|exists:proveedores,id',
-            'observacion' => 'nullable|string|max:500',
-            'fecha_ingreso' => 'required|date',
+            'cantidad' => 'required|numeric|min:0.01',
+            'precio_unitario' => 'required|numeric|min:0',
+            'documento' => 'nullable|string'
         ]);
     
-        // Calcular el costo total
-        $validated['costo_total'] = $validated['cantidad'] * $validated['costo_unitario'];
+        DB::transaction(function () use ($validated) {
+            $ingreso = Ingreso::create($validated + ['user_id' => auth()->id()]);
+            
+            Movimiento::create([
+                'producto_id' => $validated['producto_id'],
+                'tipo' => 'ingreso',
+                'cantidad' => $validated['cantidad'],
+                'precio_unitario' => $validated['precio_unitario'],
+                'documento' => $validated['documento'],
+                'ingreso_id' => $ingreso->id,
+                // 'user_id' => auth()->id()
+            ]);
+        });
     
-        // Obtener fecha en formato YYYYMMDD
-        $fecha = date('Ymd', strtotime($validated['fecha_ingreso']));
-    
-        // Contar ingresos existentes del mismo tipo
-        $conteo = Ingreso::where('tipo_ingreso', $validated['tipo_ingreso'])->count() + 1;
-    
-        // Generar el campo 'documento'
-        switch (strtolower($validated['tipo_ingreso'])) {
-            case 'compra':
-                $validated['documento'] = 'FAC-' . str_pad($conteo, 4, '0', STR_PAD_LEFT);
-                break;
-            case 'ajuste':
-                $validated['documento'] = 'AJUSTE-' . $fecha . '-' . str_pad($conteo, 3, '0', STR_PAD_LEFT);
-                break;
-            case 'devolucion':
-                $validated['documento'] = 'DEVOLUCION-' . $fecha . '-' . str_pad($conteo, 3, '0', STR_PAD_LEFT);
-                break;
-            default:
-                $validated['documento'] = 'DOC-' . $fecha . '-' . uniqid();
-                break;
-    }
-
-    Ingreso::create($validated);
-
-    return redirect()->route('ingresos.index')->with('success', 'Ingreso registrado correctamente.');
+        return redirect()->route('ingresos.index')
+            ->with('success', 'Ingreso registrado correctamente');
     }
 
 
