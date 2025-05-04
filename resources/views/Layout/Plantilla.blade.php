@@ -104,7 +104,7 @@
     <a href="{{ route('egresos.index') }}" class="element-slidebar">
       <div class="element-slidebar-btn">
           {{-- <span><img  src="{{asset('img/category.png')}}" alt="Product"></span> --}}
-        Egresos / Ventas
+        Ventas
       </div>
     </a>
  

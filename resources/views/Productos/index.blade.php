@@ -22,6 +22,7 @@ Productos
                 <th>Nombre</th>
                 <th>Descripción</th>
                 <th>Stock</th>
+                <th>Precio a Vender</th>
                 <th>Estado</th>
                 <th>Categoria</th>
                 <th>Subcategoria</th>
@@ -35,6 +36,7 @@ Productos
                 <td>{{ $producto->nombre }}</td>
                 <td>{{ $producto->descripcion }}</td>
                 <td>{{ $producto->stock}}</td>
+                <td>{{ $producto->precio}}</td>
                 <td>{{ $producto->estado ? 'Activo' : 'Inactivo' }}</td>
                 <td>{{ $producto->categoria->nombre ?? 'Sin Categoría' }}</td>
                 <td>{{ $producto->subcategoria->nombre ?? 'Sin Subcategoría' }}</td>

@@ -19,7 +19,6 @@ Egresos
     <table>
         <thead>
             <tr>
-                <th></th>
                 <th>Producto</th>
                 <th>Observación</th>
                 <th>Proveedor</th>
@@ -35,7 +34,6 @@ Egresos
         <tbody class="tabla-egresos">
             @foreach ($egresos as $egreso)
                 <tr>
-                    <td></td>
                     <td>{{ $egreso->producto->nombre ?? 'N/A' }}</td>
                     <td>{{ $egreso->observacion }}</td>
                     <td>{{ $egreso->proveedor->nombre ?? 'N/A' }}</td>

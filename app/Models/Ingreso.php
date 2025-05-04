@@ -20,7 +20,11 @@ class Ingreso extends Model
         'documento',
         'proveedor_id',
         'observacion',
-        'fecha_ingreso' => 'date'
+        'fecha_ingreso'
+    ];
+
+    protected $casts = [
+        'fecha_ingreso' => 'date',
     ];
 
     // Relaciones

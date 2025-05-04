@@ -27,7 +27,12 @@
             </div>
 
             <div class="form-group">
-                <label for="cantidad">Cantidad</label>
+                <label for="stock_actual">Stock Actual</label>
+                <input type="number" id="stock_actual" name="stock_actual" readonly>
+            </div>
+
+            <div class="form-group">
+                <label for="cantidad">Cantidad a Vender</label>
                 <input type="number" id="cantidad" name="cantidad" required min="1"
                        value="{{ old('cantidad') }}">
             </div>
@@ -99,6 +104,8 @@
     const proveedorGroup = document.getElementById('proveedor-group');
     const proveedorSelect = document.getElementById('proveedor_id');
     const productoSelect = document.getElementById('producto_id');
+    const stockActual = document.getElementById('stock_actual');
+    const form = document.querySelector('form');
 
     function actualizarCostoTotal() {
         const cant = parseFloat(cantidad.value) || 0;
@@ -132,21 +139,29 @@
         }
     }
 
-    // Actualizar cantidad con stock del producto si no está lleno
     productoSelect.addEventListener('change', function () {
         const selectedOption = this.options[this.selectedIndex];
         const stock = selectedOption.getAttribute('data-stock');
-        if (stock && !cantidad.value) {
-            cantidad.value = stock;
-            actualizarCostoTotal();
-        }
+        stockActual.value = stock ?? '';
     });
 
     cantidad.addEventListener('input', actualizarCostoTotal);
     costoUnitario.addEventListener('input', actualizarCostoTotal);
+
     tipoEgreso.addEventListener('change', () => {
         generarDocumento();
         toggleProveedorField();
+    });
+
+    // Validación antes de enviar el formulario
+    form.addEventListener('submit', function (e) {
+        const cant = parseFloat(cantidad.value);
+        const stock = parseFloat(stockActual.value);
+
+        if (cant > stock) {
+            e.preventDefault();
+            alert('La cantidad ingresada supera el stock disponible.');
+        }
     });
 
     // Inicialización
@@ -157,9 +172,8 @@
 
         const selectedOption = productoSelect.selectedOptions[0];
         const stock = selectedOption?.getAttribute('data-stock');
-        if (stock && !cantidad.value) {
-            cantidad.value = stock;
-            actualizarCostoTotal();
+        if (stock) {
+            stockActual.value = stock;
         }
     });
 </script>
