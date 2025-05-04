@@ -25,3 +25,6 @@ yarn-error.log
 !/storage/.gitignore
 /bootstrap/cache/*
 !/bootstrap/cache/.gitignore
+docker-compose.yml
+Dockerfile
+

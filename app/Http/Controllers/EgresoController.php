@@ -34,7 +34,16 @@ class EgresoController extends Controller
             'tipo_egreso' => 'required|in:venta,devolucion_proveedor,ajuste_negativo,consumo_interno',
             'fecha_egreso' => 'required|date',
         ]);
-
+    
+        // Obtener el producto para consultar el stock
+        $producto = Producto::find($request->producto_id);
+    
+        if ($producto && $request->cantidad > $producto->stock) {
+            return back()->withInput()->withErrors([
+                'cantidad' => 'La cantidad ingresada supera el stock disponible (' . $producto->stock . ').',
+            ]);
+        }
+    
         $egreso = Egreso::create([
             'producto_id' => $request->producto_id,
             'proveedor_id' => $request->proveedor_id,
@@ -46,9 +55,10 @@ class EgresoController extends Controller
             'observacion' => $request->observacion,
             'fecha_egreso' => $request->fecha_egreso,
         ]);
-
+    
         return redirect()->route('egresos.index')->with('success', 'Egreso registrado correctamente.');
     }
+    
 
     // Mostrar un egreso específico
     public function show(Egreso $egreso)
