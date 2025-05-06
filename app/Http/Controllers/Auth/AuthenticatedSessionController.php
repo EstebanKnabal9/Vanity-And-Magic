@@ -27,9 +27,9 @@ class AuthenticatedSessionController extends Controller
         $request->authenticate();
         $request->session()->regenerate();
     
+        LoginRestore
         return redirect()->intended('/'); // Aquí va a welcome si está autenticado
     }    
-
     /**
      * Destroy an authenticated session.
      */
