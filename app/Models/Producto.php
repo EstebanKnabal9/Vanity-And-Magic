@@ -17,6 +17,7 @@ class Producto extends Model
         'estado',
         'categoria_id',
         'subcategoria_id',
+        
     ];
 
     public function categoria()

@@ -6,9 +6,17 @@ Egresos
 
 @section('contenido')
 
+<!-- Estilo personalizado para quitar todos los bordes de la tabla -->
+<style>
+    .tabla-sin-bordes th,
+    .tabla-sin-bordes td {
+        border: none !important;
+    }
+</style>
+
 <section class="container-tabla">
 
-    <nav class="nav-botones">
+    <nav class="nav-botones mb-4">
         <ul class="nav-menu">
             <li class="nav-item">
                 <a href="{{ route('egresos.create') }}" class="nav-link btn-agregar">Agregar Egreso</a>
@@ -16,47 +24,54 @@ Egresos
         </ul>
     </nav>
 
-    <table>
-        <thead>
+    <table class="min-w-full table-auto border-collapse tabla-sin-bordes text-sm">
+        <thead class="bg-gray-200 text-gray-700">
             <tr>
-                <th>Producto</th>
-                <th>Observación</th>
-                <th>Proveedor</th>
-                <th>Cantidad</th>
-                <th>Costo Unitario</th>
-                <th>Costo Total</th>
-                <th>Tipo</th>
-                <th>Documento</th>
-                <th>Fecha</th>
-                <th>Opciones</th>
+                <th class="px-4 py-2">Producto</th>
+                <th class="px-4 py-2">Observación</th>
+                <th class="px-4 py-2">Proveedor</th>
+                <th class="px-4 py-2">Cantidad</th>
+                <th class="px-4 py-2">Costo Unitario</th>
+                <th class="px-4 py-2">Costo Total</th>
+                <th class="px-4 py-2">Tipo</th>
+                <th class="px-4 py-2">Documento</th>
+                <th class="px-4 py-2">Fecha</th>
+                <th class="px-4 py-2 text-center align-middle">Opciones</th>
             </tr>
         </thead>
-        <tbody class="tabla-egresos">
+        <tbody class="text-gray-600">
             @foreach ($egresos as $egreso)
-                <tr>
-                    <td>{{ $egreso->producto->nombre ?? 'N/A' }}</td>
-                    <td>{{ $egreso->observacion }}</td>
-                    <td>{{ $egreso->proveedor->nombre ?? 'N/A' }}</td>
-                    <td>{{ $egreso->cantidad }}</td>
-                    <td>{{ $egreso->costo_unitario }}</td>
-                    <td>{{ $egreso->costo_total }}</td>
-                    <td>{{ ucfirst(str_replace('_', ' ', $egreso->tipo_egreso)) }}</td>
-                    <td>{{ $egreso->documento }}</td>
-                    <td>{{ $egreso->fecha_egreso }}</td>
-                    <td>
-                        {{-- Botón editar --}}
-                        <a href="{{ route('egresos.edit', [$egreso->id]) }}">
-                            <img src="{{ asset('img/edit.png') }}" alt="Editar">
+            <tr class="hover:bg-gray-100">
+                <td class="px-4 py-2">{{ $egreso->producto->nombre ?? 'N/A' }}</td>
+                <td class="px-4 py-2">{{ $egreso->observacion }}</td>
+                <td class="px-4 py-2">{{ $egreso->proveedor->nombre ?? 'N/A' }}</td>
+                <td class="px-4 py-2">{{ $egreso->cantidad }}</td>
+                <td class="px-4 py-2">{{ $egreso->costo_unitario }}</td>
+                <td class="px-4 py-2">{{ $egreso->costo_total }}</td>
+                <td class="px-4 py-2">{{ ucfirst(str_replace('_', ' ', $egreso->tipo_egreso)) }}</td>
+                <td class="px-4 py-2">{{ $egreso->documento }}</td>
+                <td class="px-4 py-2">{{ $egreso->fecha_egreso }}</td>
+                <td class="px-4 py-2 flex justify-center space-x-2">
+                    <div style="display: flex; gap: 8px; align-items: center;">
+                        <!-- Ver -->
+                        <a href="{{ route('egresos.show', $egreso->id) }}" style="text-decoration: none;">
+                            <img src="{{ asset('img/VerIcono.png') }}" alt="Ver" style="width: 42px; height: 42px; display: block;">
                         </a>
-
-                        {{-- Botón eliminar --}}
-                        <form action="{{ route('egresos.destroy', [$egreso->id]) }}" method="POST" style="display:inline;" onsubmit="return confirmarEliminacion()">
+                        <!-- Editar -->
+                        <a href="{{ route('egresos.edit', $egreso->id) }}" style="text-decoration: none;">
+                            <img src="{{ asset('img/EditarIcono.png') }}" alt="Editar" style="width: 42px; height: 42px; display: block;">
+                        </a>
+                        <!-- Eliminar -->
+                        <form action="{{ route('egresos.destroy', $egreso->id) }}" method="POST" onsubmit="return confirmarEliminacion()" style="margin: 0; text-decoration: none;">
                             @csrf
                             @method('DELETE')
-                            <input type="image" src="{{ asset('img/delete.png') }}" alt="Eliminar">
+                            <button type="submit" style="background: none; border: none; padding: 0; cursor: pointer;">
+                                <img src="{{ asset('img/EliminarIcono.png') }}" alt="Eliminar" style="width: 42px; height: 42px; display: block;">
+                            </button>
                         </form>
-                    </td>
-                </tr>
+                    </div>
+                </td>
+            </tr>
             @endforeach
         </tbody>
     </table>

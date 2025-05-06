@@ -40,6 +40,16 @@ class SubcategoriaController extends Controller
         return redirect()->route('subcategorias.index');
     }
 
+    public function show($id)
+    {
+        // Buscar la subcategoría por su ID
+        $subcategoria = Subcategoria::with('categoria')->findOrFail($id);
+    
+        // Retornar la vista con los datos de la subcategoría
+        return view('Subcategorias.show', compact('subcategoria'));
+    }
+    
+    
         public function edit($id)
     {
         // Obtenemos la subcategoría a editar

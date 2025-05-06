@@ -6,8 +6,16 @@ Ingresos / Compras
 
 @section('contenido')
 
+<!-- Estilo personalizado para quitar todos los bordes de la tabla -->
+<style>
+    .tabla-sin-bordes th,
+    .tabla-sin-bordes td {
+        border: none !important;
+    }
+</style>
+
 <section class="container-tabla">
-    <nav class="nav-botones">
+    <nav class="nav-botones mb-4">
         <ul class="nav-menu">
             <li class="nav-item">
                 <a href="{{ route('ingresos.create') }}" class="nav-link btn-agregar">Agregar Ingreso / Compra</a>
@@ -15,49 +23,55 @@ Ingresos / Compras
         </ul>
     </nav>
 
-    <table>
-        <thead>
+    <table class="min-w-full table-auto border-collapse tabla-sin-bordes text-sm">
+        <thead class="bg-gray-200 text-gray-700">
             <tr>
-                <th>Producto</th>
-                <th>Documento</th>
-                <th>Cantidad</th>
-                <th>Costo Unitario</th>
-                <th>Costo Total</th>
-                <th>Tipo de Ingreso</th>
-                <th>Observación</th>
-                <th>Proveedor</th>
-                <th>Fecha de Ingreso</th>
-                <th>Opciones</th>
+                <th class="px-4 py-2">Producto</th>
+                <th class="px-4 py-2">Documento</th>
+                <th class="px-4 py-2">Cantidad</th>
+                <th class="px-4 py-2">Costo Unitario</th>
+                <th class="px-4 py-2">Costo Total</th>
+                <th class="px-4 py-2">Tipo de Ingreso</th>
+                <th class="px-4 py-2">Observación</th>
+                <th class="px-4 py-2">Proveedor</th>
+                <th class="px-4 py-2">Fecha de Ingreso</th>
+                <th class="px-4 py-2 text-center align-middle">Opciones</th>
             </tr>
         </thead>
-        <tbody class="tabla-ingresos">
+        <tbody class="text-gray-600">
             @foreach ($ingresos as $ingreso)
-            <tr>
-                <td>{{ $ingreso->producto->nombre }}</td>
-                <td>{{ $ingreso->documento }}</td>
-                <td>{{ $ingreso->cantidad }}</td>
-                <td>{{ $ingreso->costo_unitario }}</td>
-                <td>{{ $ingreso->costo_total }}</td>
-                <td>{{ $ingreso->tipo_ingreso }}</td>
-                <td> {{ $ingreso->observacion }}</td>
-                <td>{{ $ingreso->proveedor->nombre ?? 'Sin proveedor' }}</td>
-                <td>{{ $ingreso->fecha_ingreso }}</td>
-                <td>
-                    <div class="botones-accion">
-                        <a href="{{ route('ingresos.edit', $ingreso->id) }}">
-                            <img src="{{ asset('img/edit.png') }}" alt="Editar">
+            <tr class="hover:bg-gray-100">
+                <td class="px-4 py-2">{{ $ingreso->producto->nombre }}</td>
+                <td class="px-4 py-2">{{ $ingreso->documento }}</td>
+                <td class="px-4 py-2">{{ $ingreso->cantidad }}</td>
+                <td class="px-4 py-2">{{ $ingreso->costo_unitario }}</td>
+                <td class="px-4 py-2">{{ $ingreso->costo_total }}</td>
+                <td class="px-4 py-2">{{ $ingreso->tipo_ingreso }}</td>
+                <td class="px-4 py-2">{{ $ingreso->observacion }}</td>
+                <td class="px-4 py-2">{{ $ingreso->proveedor->nombre ?? 'Sin proveedor' }}</td>
+                <td class="px-4 py-2">{{ $ingreso->fecha_ingreso }}</td>
+                <td class="px-4 py-2 flex justify-center space-x-2">
+                    <div style="display: flex; gap: 8px; align-items: center;">
+                        <!-- Botón de ver -->
+                        <a href="{{ route('ingresos.show', $ingreso->id) }}" style="text-decoration: none;">
+                            <img src="{{ asset('img/VerIcono.png') }}" alt="Ver" style="width: 42px; height: 42px; display: block;">
                         </a>
-                    </div>
-                </td>
-                <td>
-                    <div>
-                        <form action="{{ route('ingresos.destroy', $ingreso->id) }}" method="POST" onsubmit="return confirmarEliminacion()">
+
+                        <!-- Botón de editar -->
+                        <a href="{{ route('ingresos.edit', $ingreso->id) }}" style="text-decoration: none;">
+                            <img src="{{ asset('img/EditarIcono.png') }}" alt="Editar" style="width: 42px; height: 42px; display: block;">
+                        </a>
+
+                        <!-- Botón de eliminar -->
+                        <form action="{{ route('ingresos.destroy', $ingreso->id) }}" method="POST" onsubmit="return confirmarEliminacion()" style="margin: 0; text-decoration: none;">
                             @csrf
                             @method('DELETE')
-                            <input type="image" src="{{ asset('img/delete.png') }}" alt="Eliminar">
+                            <button type="submit" style="background: none; border: none; padding: 0; cursor: pointer;">
+                                <img src="{{ asset('img/EliminarIcono.png') }}" alt="Eliminar" style="width: 42px; height: 42px; display: block;">
+                            </button>
                         </form>
                     </div>
-                </td>                                  
+                </td>
             </tr>
             @endforeach
         </tbody>

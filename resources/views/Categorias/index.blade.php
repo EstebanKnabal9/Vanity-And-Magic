@@ -1,63 +1,77 @@
 @extends('Layout.Plantilla')
 
 @section('titulomain')
-Categorias
+Categorías
 @endsection
 
 @section('contenido')
 
-<section class="container-tabla">
+<!-- Estilo para ocultar bordes visibles de tabla -->
+<style>
+    .tabla-sin-bordes th,
+    .tabla-sin-bordes td {
+        border: none !important;
+    }
+</style>
 
-    <nav class="nav-botones">
+<section class="container-tabla">
+    <nav class="nav-botones mb-4">
         <ul class="nav-menu">
             <li class="nav-item">
-                <a href="{{ route('categorias.create') }}" class="nav-link btn-agregar">Agregar Categoria</a>
+                <a href="{{ route('categorias.create') }}" class="nav-link btn-agregar">Agregar Categoría</a>
             </li>
         </ul>
     </nav>
 
-    <table>
-        <thead>
+    <table class="min-w-full table-auto border-collapse tabla-sin-bordes text-sm">
+        <thead class="bg-gray-200 text-gray-700">
             <tr>
-                <th></th>
-                <th>Nombre</th>
-                <th>Descripcion</th>
-                <th>Estado</th>
-                <th>Opciones</th>
+                <th class="px-4 py-2"></th>
+                <th class="px-4 py-2">Nombre</th>
+                <th class="px-4 py-2">Descripción</th>
+                <th class="px-4 py-2">Estado</th>
+                <th class="px-4 py-2 text-center">Opciones</th>
             </tr>
         </thead>
-        <tbody class="tabla-categorias">
+        <tbody class="text-gray-600">
             @foreach ($categorias as $categoria)
-                <tr>
-                    <td></td>
-                    <td>{{ $categoria->nombre }}</td>
-                    <td>{{ $categoria->descripcion }}</td>
-                    <td>{{ $categoria->estado }}</td>
-                    <td>
-                        {{-- Enlace para editar --}}
-                        <a href="{{ route('categorias.edit', [$categoria->id]) }}">
-                            <img src="img/edit.png" alt="Editar">
+            <tr class="hover:bg-gray-100">
+                <td class="px-4 py-2"></td>
+                <td class="px-4 py-2">{{ $categoria->nombre }}</td>
+                <td class="px-4 py-2">{{ $categoria->descripcion }}</td>
+                <td class="px-4 py-2">{{ $categoria->estado ? 'Activo' : 'Inactivo' }}</td>
+                <td class="px-4 py-2 flex justify-center space-x-2">
+                    <div style="display: flex; gap: 8px; align-items: center;">
+                        <!-- Ver -->
+                        <a href="{{ route('categorias.show', $categoria->id) }}" style="text-decoration: none;">
+                            <img src="{{ asset('img/VerIcono.png') }}" alt="Ver" style="width: 42px; height: 42px; display: block;">
                         </a>
 
-                        {{-- Formulario para eliminar --}}
-                        <form action="{{ route('categorias.destroy', [$categoria->id]) }}" method="POST" onsubmit="return confimarEliminacion()">
+                        <!-- Editar -->
+                        <a href="{{ route('categorias.edit', $categoria->id) }}" style="text-decoration: none;">
+                            <img src="{{ asset('img/EditarIcono.png') }}" alt="Editar" style="width: 42px; height: 42px; display: block;">
+                        </a>
+
+                        <!-- Eliminar -->
+                        <form action="{{ route('categorias.destroy', $categoria->id) }}" method="POST" onsubmit="return confirmarEliminacion()" style="margin: 0;">
                             @csrf
                             @method('DELETE')
-                            <input type="image" src="img/delete.png" alt="Eliminar">
+                            <button type="submit" style="background: none; border: none; padding: 0; cursor: pointer;">
+                                <img src="{{ asset('img/EliminarIcono.png') }}" alt="Eliminar" style="width: 42px; height: 42px; display: block;">
+                            </button>
                         </form>
-
-                        {{-- Script de confirmación --}}
-                        <script>
-                            function confimarEliminacion() {
-                                return confirm('¿Seguro deseas eliminar?'); // Muestra el mensaje de confirmación
-                            }
-                        </script>
-                    </td>
-                </tr>
+                    </div>
+                </td>
+            </tr>
             @endforeach
         </tbody>
     </table>
-
 </section>
+
+<script>
+    function confirmarEliminacion() {
+        return confirm('¿Seguro deseas eliminar?');
+    }
+</script>
 
 @endsection
