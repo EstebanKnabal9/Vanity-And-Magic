@@ -14,6 +14,9 @@ services:
       - db
     networks:
       - vanity_network
+    dns:
+      - 8.8.8.8
+      - 1.1.1.1
     command: >
       sh -c "chown -R www-data:www-data storage bootstrap/cache &&
              chmod -R 775 storage bootstrap/cache &&
