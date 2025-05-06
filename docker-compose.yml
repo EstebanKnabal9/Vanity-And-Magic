@@ -8,8 +8,6 @@ services:
     working_dir: /var/www
     volumes:
       - .:/var/www
-      - /var/www/vendor
-      - /var/www/node_modules
     env_file:
       - .env
     depends_on:
