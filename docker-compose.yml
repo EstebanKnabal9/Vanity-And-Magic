@@ -14,10 +14,7 @@ services:
       - db
     networks:
       - vanity_network
-    command: >
-      sh -c "chown -R www-data:www-data storage bootstrap/cache &&
-             chmod -R 775 storage bootstrap/cache &&
-             php-fpm"
+    command: /usr/local/bin/docker-entrypoint.sh
 
   webserver:
     image: nginx:alpine
