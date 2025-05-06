@@ -68,6 +68,15 @@ class IngresoController extends Controller
     return redirect()->route('ingresos.index')->with('success', 'Ingreso registrado correctamente.');
     }
 
+    public function show($id)
+    {
+    // Buscar el ingreso por su ID e incluir las relaciones con producto y proveedor
+    $ingreso = Ingreso::with('producto', 'proveedor')->findOrFail($id);
+
+    // Retornar la vista con los datos del ingreso
+    return view('Ingresos.show', compact('ingreso'));
+    }
+
 
     // Método para editar un ingreso existente
     public function edit($id)

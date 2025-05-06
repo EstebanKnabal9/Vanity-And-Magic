@@ -28,11 +28,6 @@ class ProductosController extends Controller
         return $this->belongsTo(Subcategoria::class, 'subcategoria_id');
     }
 
-    public function proveedor()
-    {
-        return $this->belongsTo(Proveedor::class, 'subcategoria_id');
-    }
-
     public function create()
     {
         $categorias = Categoria::all();
@@ -57,6 +52,16 @@ class ProductosController extends Controller
 
         return redirect()->route('productos.index')->with('success', 'Producto creado correctamente.');
     }
+
+    public function show($id)
+    {
+    // Buscar el producto por su ID e incluir relaciones con categoría y subcategoría
+    $producto = Producto::with('categoria', 'subcategoria')->findOrFail($id);
+
+    // Retornar la vista con los datos del producto
+    return view('Productos.show', compact('producto'));
+    }
+
 
     public function edit($id)
     {
