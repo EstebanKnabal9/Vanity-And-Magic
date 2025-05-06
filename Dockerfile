@@ -15,6 +15,7 @@ RUN apt-get update && apt-get install -y \
     libssl-dev \
     nodejs \
     npm \
+    default-mysql-client \
     && docker-php-ext-install pdo pdo_mysql mbstring zip exif pcntl
 
 # Instalar Composer
@@ -31,3 +32,9 @@ RUN chown -R www-data:www-data /var/www && chmod -R 775 /var/www
 
 # Exponer el puerto si quieres correr php built-in server (no necesario con nginx)
 EXPOSE 9000
+
+# Copiar el script de entrada al contenedor
+COPY docker-entrypoint.sh /usr/local/bin/docker-entrypoint.sh
+
+# Usar el script como punto de entrada
+ENTRYPOINT ["/usr/local/bin/docker-entrypoint.sh"]
