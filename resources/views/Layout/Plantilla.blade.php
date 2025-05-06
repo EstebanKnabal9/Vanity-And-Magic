@@ -125,6 +125,22 @@
         <div class="titulo-nav">@yield('titulomain')</div>  
 
         <button id="menu-toggle" class="menu-hamburger">☰</button>
+
+        <form method="POST" action="{{ route('logout') }}" style="position: absolute; top: 1rem; right: 1rem;">
+          @csrf
+          <button type="submit" style="
+              background-color: #dc3545;
+              color: white;
+              border: none;
+              padding: 0.5rem 1rem;
+              border-radius: 5px;
+              font-weight: bold;
+              cursor: pointer;
+          ">
+              Cerrar sesión
+          </button>
+      </form>
+      
     </header>
     {{-- aqui se coloca todos los elmentos cambiantes --}}
       
